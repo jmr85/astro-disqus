@@ -1,7 +1,8 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+import Comments from '../../components/Comments';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -18,4 +19,12 @@ const { Content } = await render(post);
 
 <BlogPost {...post.data}>
 	<Content />
+	<div class="comments-section" style="margin-top: 2em;">
+		<Comments
+			url={Astro.url.href}
+			id={post.id}
+			title={post.data.title}
+			client:visible
+		/>
+	</div>
 </BlogPost>

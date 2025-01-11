@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.5",
+    "@astrojs/react": "^4.1.3",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.1.5"
+    "astro": "^5.1.5",
+    "astro-disqus": "file:",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
