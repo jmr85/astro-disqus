@@ -15,15 +15,20 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+// Leer la variable de entorno
+const {ENABLE_DISQUS_COMMENTS} = import.meta.env;
 ---
 
 <BlogPost {...post.data}>
 	<Content />
-	<div class="comments-section" style="margin-top: 2em;">
-		<Comments
-			url={Astro.url.href}
-			id={post.id}
-			title={post.data.title}
-		/>
-	</div>
+	{ENABLE_DISQUS_COMMENTS && (
+		<div class="comments-section" style="margin-top: 2em;">
+			<Comments
+				url={Astro.url.href}
+				id={post.id}
+				title={post.data.title}
+			/>
+		</div>
+	)}
 </BlogPost>
