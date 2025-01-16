@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import Comments from '../components/Comments.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -47,9 +48,18 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.date {
 				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 1em;
+			}
+			.comments-count {
+				color: rgb(var(--gray));
+				font-size: 0.9em;
 			}
 			.last-updated-on {
 				font-style: italic;
+				color: rgb(var(--gray));
 			}
 		</style>
 	</head>
@@ -58,13 +68,16 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
+					<div class="hero-image">
 					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-				</div>
+					</div>
 				<div class="prose">
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
+							<a href="#disqus_thread" class="comments-count">
+								Comments
+							</a>
 							{
 								updatedDate && (
 									<div class="last-updated-on">
@@ -79,7 +92,18 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					<slot />
 				</div>
 			</article>
+
+			<div class="comments-section" style="margin-top: 2em; max-width: 720px; margin: 2em auto;">
+				<Comments
+					url={Astro.url.href}
+					id={Astro.props.slug}
+					title={title}
+				/>
+			</div>
 		</main>
 		<Footer />
+		
+		{/* Script para conteo de comentarios */}
+		<script id="dsq-count-scr" src="//jmruiz.disqus.com/count.js" async></script>
 	</body>
 </html>
