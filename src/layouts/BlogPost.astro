@@ -96,7 +96,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<div class="comments-section" style="margin-top: 2em; max-width: 720px; margin: 2em auto;">
 				<Comments
 					url={Astro.url.href}
-					id={Astro.props.slug}
+					id={Astro.params.slug as string}
 					title={title}
 				/>
 			</div>
